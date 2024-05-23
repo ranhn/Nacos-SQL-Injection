@@ -1,35 +1,35 @@
-Alibaba nacos使用derby数据库存在sql注入
+Alibaba Nacos using Derby database with SQL injection
 
-Nacos 支持多种数据库，包括 Derby、MySQL、MariaDB、PostgreSQL、Oracle 和 SQL Server 等。其中，Derby 是 Nacos 默认的嵌入式数据库，而其他数据库需要手动配置才能使用。
+Nacos supports multiple databases, including Derby MySQL, MariaDB, PostgreSQL, Oracle, and SQL Server, among others. Among them, Derby is the default embedded database for Nacos, while other databases require manual configuration to be used.
 
-漏洞地址： http://nacos.xxxxxxx.com.ph:8848/nacos/v1/cs/ops/derby?sql=select%20*%20from%20users
+Vulnerability Address： http://nacos.xxxxxxx.com.ph:8848/nacos/v1/cs/ops/derby?sql=select%20*%20from%20users
 
-漏洞描述： Alibaba nacos使用derby数据库存在sql注入,可直接执行sql查询相关敏感信息。
+Vulnerability Description： Alibaba Nacos uses the derby database for SQL injection, which allows for direct execution of SQL queries for sensitive information.
 
-漏洞详情：
+Vulnerability details：
 
-1，如果使用的是derby数据库，访问上述接口。 image
+1，If using a derby database, access the above interface image
 
-2，执行sql语句，得到相关敏感数据。 image
+2，Execute SQL statements to obtain relevant sensitive data. image
 
-这个查询的数据输出表明了对 SQL 查询的直接执行，而没有对用户输入的 SQL 进行任何过滤或者防护。
+The data output of this query indicates direct execution of the SQL query without any filtering or protection on the SQL input by the user.
 
-3，如果不是使用的derby数据库，则提示 "The current storage mode is not Derby" image
+3，If not using a derby database, prompt "The current storage mode is not Derby" image
 
-漏洞版本： nacos企业版 2.0.3,2.1.2 image image
+Vulnerable versions: nacos enterprise version 2.0.3 and 2.1.2image image
 
-derby数据库版本 10.14.2.0 image
+Derby database version 10.14.2.0 image
 
-修复建议：
+Repair suggestions：
 
-1,为了防止 SQL 注入攻击，应该采取参数化查询等安全措施来处理用户输入的 SQL 查询。
+1,To prevent SQL injection attacks, security measures such as parameterized queries should be taken to handle user input SQL queries.
 
-2,使用手动配置数据库，在 Nacos 的配置文件中，可以通过属性来指定使用的数据库类型，例如：application.propertiesspring.datasource.platform spring.datasource.platform=mysql
+2,Using manual database configuration, in the Nacos configuration file, the type of database used can be specified through properties, such as：application.propertiesspring.datasource.platform spring.datasource.platform=mysql
 
-同时，还需要配置数据库的连接信息，例如： spring.datasource.url=jdbc:mysql://localhost:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true
+At the same time, it is necessary to configure the connection information of the database, such as： spring.datasource.url=jdbc:mysql://localhost:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true
 
 spring.datasource.username=root
 
 spring.datasource.password=xxxxxxx
 
-以上示例配置了使用 MySQL 数据库，并指定了连接信息。
+The above example configured the use of MySQL database and specified connection information.
