@@ -8,17 +8,28 @@ Vulnerability Description： Alibaba Nacos uses the derby database for SQL injec
 
 Vulnerability details：
 
-1，If using a derby database, access the above interface image
+1，If using a derby database, access the above interface 
+![image](https://github.com/ranhn/Nacos-SQL-Injection/assets/107679328/731a6eb5-092b-43d6-b130-3dc32e33e142)
 
-2，Execute SQL statements to obtain relevant sensitive data. image
+
+2，Execute SQL statements to obtain relevant sensitive data. 
+![image](https://github.com/ranhn/Nacos-SQL-Injection/assets/107679328/576ab611-9ab0-4a20-9832-59518fc093bb)
+
 
 The data output of this query indicates direct execution of the SQL query without any filtering or protection on the SQL input by the user.
 
-3，If not using a derby database, prompt "The current storage mode is not Derby" image
+3，If not using a derby database, prompt "The current storage mode is not Derby" 
+![image](https://github.com/ranhn/Nacos-SQL-Injection/assets/107679328/33464fe3-4719-40b4-9316-26fbd16082d8)
 
-Vulnerable versions: nacos enterprise version 2.0.3 and 2.1.2image image
 
-Derby database version 10.14.2.0 image
+Vulnerable versions: nacos enterprise version 2.0.3 and 2.1.2
+![image](https://github.com/ranhn/Nacos-SQL-Injection/assets/107679328/b8ebcc5c-0e23-4d51-b826-95c46af84bd3)
+
+![image](https://github.com/ranhn/Nacos-SQL-Injection/assets/107679328/2794a887-0dc8-4069-856c-4417701200ae)
+
+Derby database version 10.14.2.0 
+
+![image](https://github.com/ranhn/Nacos-SQL-Injection/assets/107679328/f351c1bc-890e-4267-8c4a-e2c83486044c)
 
 Repair suggestions：
 
